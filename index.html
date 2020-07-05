@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Text Adventure Game</title>
+<meta charset="UTF-8">
+<meta content='width=device-width, initial-scale=1' name='viewport'/>
+<style>
+
+</style>
+</head>
+<body>
+	<div id="text">What is your name?</div>
+	<input id="input">
+	<button onclick="run()">Submit</button>
+	<script>
+	var x = 0;
+	var t;
+	var text = document.getElementById("text");
+	var input = document.getElementById("input");
+	var playerName;
+	var ulat = 0;
+	
+	function run(){
+		var a = input.value.toLowerCase();
+		switch(x){
+			case 0:
+				t = "Hola " + a + ". You are trapped in your neighbour's house because of abduction. You have to escape from it." + 
+				"You are now in a room with 2 doors, left and right. Do you want to go left or right?";
+				changeText(t);
+				playerName = a;
+				x = 1;
+				break;
+			case 1:
+				if(a == "left"){
+					x = 2;
+					run();
+				}
+				else if(a == "right"){
+					x = 3;
+					run();
+				}
+				else{
+					t = "I don't understand";
+					changeText(t);
+					x = 0;
+				}	
+				break;
+			case 2:
+				t = "You went to the left and opened the door. Then you see a man with a knife. He is cooking terang bulan. At the end of the room, you see an exit door. Do you want to go? (yes/no)";
+				changeText(t);
+				x = 4;
+				break;
+			case 3:
+				if(ulat == 0){
+					t = "You went to the right. You see a worm approaching you. What do you do? (nothing/go back)";
+					changeText(t);
+					x = 7;
+				}
+				else{
+					t = "The room is empty. You go back.";
+					changeText(t);
+					x = 6;
+				}
+				break;
+			case 4:
+				if(a == "yes"){
+					x = 5;
+					run();
+				}
+				else if(a == "no"){
+					x = 6;
+					run();
+				}
+				else{
+					t = "I don't understand";
+					changeText(t);
+					x = 2;
+				}
+				break;
+			case 5:
+				if(ulat == 0){
+					t = "The man noticed you. He throws a terang bulan at you and you fainted. GAME OVER.";
+					changeText(t);
+				}
+				else {
+					t = "Ulat kk is a magical worm. He casts an invisibility spell. The man doesn't notice you and you succesfully went out. :D";
+					changeText(t);
+				}
+				break;
+			case 6:
+				t = "You went back to the room before. There is 2 door again. Do you want to go left or right?";
+				changeText(t);
+				x = 1;
+				break;
+			case 7:
+				if(a == "nothing"){
+					x = 8;
+					run();
+				}
+				else if(a == "go back"){
+					x = 6;
+					run();
+				}
+				else{
+					t = "I don't understand";
+					changeText(t);
+					x = 3;
+				}
+				break;
+			case 8:
+				t = "The worm approached you. It can speak! Hey " + playerName +"! His name is ulat kk and he wants to go with you. He climbs onto your left shoe. And you go back to the room before.";
+				changeText(t);
+				ulat = 1;
+				x = 6;
+				break;
+			
+			default:
+		}
+	}
+	
+	function changeText(t){
+		text.innerHTML = t;
+	}
+	
+	</script>
+</body>
+</html>
